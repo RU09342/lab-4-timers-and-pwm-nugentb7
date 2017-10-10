@@ -1,15 +1,55 @@
 # Software Debouncing
-In previously labs, we talked about how objects such as switches can cause some nasty effects since they are actually a mechanical system at heart. We talked about the simple hardware method of debouncing, but due to the many different design constraints, you may not be able to add or adjust hardware. Debouncing is also only one of many applications which would require the use of built in Timers to allow for other processes to take place.
+## Brendan Nugent
+## Compatible Microcontrollers
+* MSP430G2553
+* MSP430F5529
+* MSP430FR2311
+* MSP430FR5994
+* MSP430FR6989
+## Description
+While computer engineers read the input of a switch digitally, it is still a mechanical system in its primitive state. Because of this, embedded engineers may come across an issue
+termed bounce. This is when the metal contacts of a switch continue to make contact and separate, "fooling" the embedded program into thinking the switch is toggling, after it is pressed.
 
-## Task
-You need to utilize the TIMER modules within the MSP430 processors to implement a debounced switch to control the state of an LED. You most likely will want to hook up your buttons on the development boards to an oscilloscope to see how much time it takes for the buttons to settle. The idea here is that your processor should be able to run other code, while relying on timers and interrupts to manage the debouncing in the background. You should not be using polling techniques for this assignment. Your code should also be able to detect 
+To prevent this, embedded engineers may add bounce-handling functionality to their programs. Each of these programs, although for different microcontrollers, use an on-board button to
+toggle an LED. To prevent bouncing from affecting the LED toggle, the programs employ a debouncing feature through the use of the boards' timer modules.
 
-### Hints
-You need to take a look at how the P1IE and P1IES registers work and how to control them within an interrupt routine. Remember that the debouncing is not going to be the main process you are going to run by the end of the lab.
+The steps behind this are to initialize a timer module to operate at 100Hz. With interrupts enabled, we use this timer's overflow ISR to increment a count after the button has been pressed.
+Once this count reaches 10, the hold on the button press is released and the typical button ISR can be used. 
 
-## Extra Work
-### Low Power Modes
-Go into the datasheets or look online for information about the low power modes of your processors and using Energy Trace, see what the lowest power consumption you can achieve while still running your debouncing code. Take a note when your processor is not driving the LED (or unplug the header connecting the LED and check) but running the interrupt routine for your debouncing.
+This creates a 0.1s delay between when the button interrupt is first triggered and when it may take effect again. This effectively disables the interrupt while the button is bouncing,
+avoiding unwanted LED toggles.
 
-### Double the fun
-Can you expand your code to debounce two switches? Do you have to use two Timer peripherals to do this?
+To aid in this discussion, we may look at a code snippet used in the MSP430FR2311 code.
+
+#pragma vector = TIMER0_B0_VECTOR
+__interrupt void TIMER_B(void)
+{
+    if (buttonPress == 1)
+    {
+        if (count < 10) // This will cause a delay of .01s * 10 = 0.1s
+        {
+            count++;
+        }
+
+        else //reset buttonpress and count so the button can be noticed
+        {
+            buttonPress = 0;
+            count = 1;
+        }
+    }
+}
+
+#pragma vector=PORT1_VECTOR
+__interrupt void PORT_1(void)
+{
+    if (buttonPress == 0) //if we're ready for another press
+    {
+        buttonPress = 1; //set high
+        P1OUT ^= BIT0; //toggle LED
+    }
+    P1IES ^= BIT1;
+    P1IFG &= ~BIT1; //clear flag
+}
+
+Walking through this, a user presses the on-board button, triggering the PORT_1 interrupt. The buttonPress variable is set to 1. This variable tells the program to begin debouncing in the
+TIMER_B interrupt. In this ISR, a count is incremented until it hits 10 on each TIMER B overflow. This overflow occurs every 0.01s, meaning it takes 0.1s to release the hold on the button interrupt.

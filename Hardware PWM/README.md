@@ -1,15 +1,15 @@
 # Hardware PWM
-Now that you have done the software version of PWM, now it is time to start leveraging the other features of these Timer Modules.
+## Brendan Nugent
+## Compatible Microcontrollers
+* MSP430G2553
+* MSP430F5529
+* MSP430FR2311
+* MSP430FR5994
+* MSP430FR6989
+## Description
+While the previous section made use of software pulse-width modulation through ISR and toggling the LED in code, this section is an exercise in mapping the output from the timer modules
+on the boards directly to pins. The data sheets specify which pins may be used to map the output from each timer module and how these pins need to be configured.
 
-## Task
-You need to replicate the same behavior as in the software PWM, only using the Timer Modules ability to directly output to a GPIO Pin instead of managing them in software. 
-
-### Hints 
-Read up on the P1SEL registers as well as look at the Timer modules ability to multiplex.
-
-## Extra Work
-### Using ACLK
-Some of these microprocessors have a built in ACLK which is extremely slow compared to your up to 25MHz available on some of them. What is the overall impact on the system when using this clock? Can you actually use your PWM code with a clock that slow?
-
-### Ultra Low Power
-Using a combination of ACLK, Low Power Modes, and any other means you may deem necessary, optimize this PWM code to run at 50% duty cycle with a LED on the MSP430FR5994. In particular, time how long your code can run on the fully charged super capacitor. You do not need to worry about the button control in this case, and you will probably want to disable all the GPIO that you are not using (nudge, nudge, hint, hint).
+On each compatible microcontroller listed above, the output of the timer module A/B may be mapped directly to the LED pin, except for on the MSP430F5529. On the 5529, the example code maps
+the output of the timer module to P1.2 and instructs users to connect P1.2 to the pin provided next to LED1. This will allow users to test the on-board button for functionality including the
+duty-cycle modulation; as before, the button is used to increase the duty cycle applied to the LED. Further documentation and explanation is included in the source files.
