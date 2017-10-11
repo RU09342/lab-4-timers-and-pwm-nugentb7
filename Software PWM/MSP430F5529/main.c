@@ -22,6 +22,7 @@ int main(void)
     P1SEL &= ~BIT0;
     P4DIR |= BIT7;
     P4SEL &= ~BIT7;
+    P4OUT &= ~BIT7;
 
     TA0CCTL1 = OUTMOD_7;
     TA0CCR1 = x - 1;

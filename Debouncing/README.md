@@ -6,6 +6,11 @@
 * MSP430FR2311
 * MSP430FR5994
 * MSP430FR6989
+
+## Overview
+The above microcontrollers may be used to toggle the on-board LED without bounce affecting the LED's toggle. The MSP430FR5994 has allowed for two buttons to be used to toggle two of the on-board
+LED's, with both of the buttons debounced.
+
 ## Description
 While computer engineers read the input of a switch digitally, it is still a mechanical system in its primitive state. Because of this, embedded engineers may come across an issue
 termed bounce. This is when the metal contacts of a switch continue to make contact and separate, "fooling" the embedded program into thinking the switch is toggling, after it is pressed.
@@ -53,3 +58,6 @@ __interrupt void PORT_1(void)
 
 Walking through this, a user presses the on-board button, triggering the PORT_1 interrupt. The buttonPress variable is set to 1. This variable tells the program to begin debouncing in the
 TIMER_B interrupt. In this ISR, a count is incremented until it hits 10 on each TIMER B overflow. This overflow occurs every 0.01s, meaning it takes 0.1s to release the hold on the button interrupt.
+
+## Extra Tasks
+Multi-Switch Debounce

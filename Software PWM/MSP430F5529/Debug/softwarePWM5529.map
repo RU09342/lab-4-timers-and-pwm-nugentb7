@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v17.6.0                     
 ******************************************************************************
->> Linked Mon Oct  9 16:14:50 2017
+>> Linked Tue Oct 10 19:46:39 2017
 
 OUTPUT FILE NAME:   <softwarePWM5529.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 00004460
@@ -85,7 +85,7 @@ MEMORY CONFIGURATION
   INT61                 0000fffa   00000002  00000002  00000000  RWIX
   INT62                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FLASH2                00010000   00014400  0000023a  000141c6  RWIX
+  FLASH2                00010000   00014400  00000240  000141c0  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -197,27 +197,27 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_rd_eabi.lib : boot.obj (.reset)
 
-.text      0    00010000    0000023a     
+.text      0    00010000    00000240     
                   00010000    00000082     rts430x_lc_rd_eabi.lib : autoinit_wdt.obj (.text:_auto_init_hold_wdt)
                   00010082    00000078                            : copy_decompress_lzss.obj (.text:decompress:lzss:__TI_decompress_lzss)
                   000100fa    00000066                            : cpy_tbl.obj (.text:copy_in)
-                  00010160    0000005e     main.obj (.text:main)
-                  000101be    00000032     main.obj (.text:initializeTimer)
-                  000101f0    00000018     rts430x_lc_rd_eabi.lib : mult16_f5hw.obj (.text)
-                  00010208    00000014                            : memcpy.obj (.text:memcpy)
-                  0001021c    00000012                            : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
-                  0001022e    00000006                            : exit.obj (.text:abort)
-                  00010234    00000004                            : pre_init.obj (.text:_system_pre_init)
-                  00010238    00000002                            : startup.obj (.text:_system_post_cinit)
+                  00010160    00000064     main.obj (.text:main)
+                  000101c4    00000032     main.obj (.text:initializeTimer)
+                  000101f6    00000018     rts430x_lc_rd_eabi.lib : mult16_f5hw.obj (.text)
+                  0001020e    00000014                            : memcpy.obj (.text:memcpy)
+                  00010222    00000012                            : copy_decompress_none.obj (.text:decompress:none:__TI_decompress_none)
+                  00010234    00000006                            : exit.obj (.text:abort)
+                  0001023a    00000004                            : pre_init.obj (.text:_system_pre_init)
+                  0001023e    00000002                            : startup.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
        Module                     code   ro data   rw data
        ------                     ----   -------   -------
     .\
-       main.obj                   274    8         6      
+       main.obj                   280    8         6      
     +--+--------------------------+------+---------+---------+
-       Total:                     274    8         6      
+       Total:                     280    8         6      
                                                           
     C:\ti\ccsv7\tools\compiler\ti-cgt-msp430_17.6.0.STS\lib\rts430x_lc_rd_eabi.lib
        autoinit_wdt.obj           130    0         0      
@@ -256,7 +256,7 @@ MODULE SUMMARY
        Stack:                     0      0         160    
        Linker Generated:          0      25        0      
     +--+--------------------------+------+---------+---------+
-       Grand Total:               734    71        166    
+       Grand Total:               740    71        166    
 
 
 LINKER GENERATED COPY TABLES
@@ -358,7 +358,7 @@ address   name
 00000732  ADC12MEM9               
 00000733  ADC12MEM9_H             
 00000732  ADC12MEM9_L             
-0001022e  C$$EXIT                 
+00010234  C$$EXIT                 
 000008c0  CBCTL0                  
 000008c1  CBCTL0_H                
 000008c0  CBCTL0_L                
@@ -1040,7 +1040,7 @@ UNDEFED   __TI_INITARRAY_Base
 UNDEFED   __TI_INITARRAY_Limit    
 0000449c  __TI_ISR_TRAP           
 00010082  __TI_decompress_lzss    
-0001021c  __TI_decompress_none    
+00010222  __TI_decompress_none    
 0000ffd2  __TI_int41              
 0000ffd4  __TI_int42              
 0000ffd6  __TI_int43              
@@ -1067,21 +1067,21 @@ ffffffff  __TI_pprof_out_hndl
 ffffffff  __TI_prof_data_size     
 ffffffff  __TI_prof_data_start    
 ffffffff  __c_args__              
-000101f0  __mspabi_mpyi_f5hw      
+000101f6  __mspabi_mpyi_f5hw      
 00010000  _auto_init_hold_wdt     
 00004460  _c_int00_noargs_noexit  
 0000fffe  _reset_vector           
 00004360  _stack                  
-00010238  _system_post_cinit      
-00010234  _system_pre_init        
-0001022e  abort                   
+0001023e  _system_post_cinit      
+0001023a  _system_pre_init        
+00010234  abort                   
 00002402  buttonPressed           
 000100fa  copy_in                 
 00002404  count                   
 00004442  debounce_timer          
-000101be  initializeTimer         
+000101c4  initializeTimer         
 00010160  main                    
-00010208  memcpy                  
+0001020e  memcpy                  
 00002400  x                       
 
 
@@ -1880,14 +1880,14 @@ address   name
 00010082  __TI_decompress_lzss    
 000100fa  copy_in                 
 00010160  main                    
-000101be  initializeTimer         
-000101f0  __mspabi_mpyi_f5hw      
-00010208  memcpy                  
-0001021c  __TI_decompress_none    
-0001022e  C$$EXIT                 
-0001022e  abort                   
-00010234  _system_pre_init        
-00010238  _system_post_cinit      
+000101c4  initializeTimer         
+000101f6  __mspabi_mpyi_f5hw      
+0001020e  memcpy                  
+00010222  __TI_decompress_none    
+00010234  C$$EXIT                 
+00010234  abort                   
+0001023a  _system_pre_init        
+0001023e  _system_post_cinit      
 ffffffff  __TI_pprof_out_hndl     
 ffffffff  __TI_prof_data_size     
 ffffffff  __TI_prof_data_start    
