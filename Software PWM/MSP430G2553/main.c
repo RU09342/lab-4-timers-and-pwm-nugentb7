@@ -22,7 +22,6 @@ int main(void)
     P1SEL &= ~(BIT0 + BIT6);
     P1OUT &= ~BIT6;
 
-    TA0CCTL1 = OUTMOD_7;
     TA0CCR1 = x - 1;
 
     P1DIR &=~(BIT3); //set P1.3 input

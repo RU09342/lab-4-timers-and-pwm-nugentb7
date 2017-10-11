@@ -16,7 +16,7 @@ int main(void)
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
 
     P1DIR |=BIT0; //set P1.0 as output
-    P1DIR &=~(BIT3); //set P1.1 input
+    P1DIR &=~(BIT3); //set P1.3 input
     P1REN|=BIT3;//enable pull-up resistor
     P1OUT|=BIT3;
     P1IE |=BIT3;//enable the interrupt for P1.1
@@ -46,7 +46,7 @@ __interrupt void TIMER_A(void)
 {
     if (buttonPress == 1)
     {
-        if (count < 15) // This will cause a delay of .01s * 10 = 0.1s
+        if (count < 25) // This will cause a delay of .01s * 10 = 0.1s
         {
             count++;
         }
@@ -66,6 +66,7 @@ __interrupt void PORT_1(void)
     {
         buttonPress = 1; //set high
         P1OUT ^= BIT0; //toggle LED
+        while (!(P1IN & BIT3));
     }
 
     P1IFG &= ~BIT3; //clear flag

@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v17.6.0                     
 ******************************************************************************
->> Linked Sun Oct  8 18:03:32 2017
+>> Linked Wed Oct 11 16:04:04 2017
 
 OUTPUT FILE NAME:   <debouncing2311.out>
-ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 0000f520
+ENTRY POINT SYMBOL: "_c_int00_noargs_noexit"  address: 0000f53a
 
 
 MEMORY CONFIGURATION
@@ -13,7 +13,7 @@ MEMORY CONFIGURATION
 ----------------------  --------  ---------  --------  --------  ----  --------
   BSL0                  00001000   00000800  00000000  00000800  RWIX
   RAM                   00002000   00000400  000000a4  0000035c  RWIX
-  FRAM                  0000f100   00000e80  0000045a  00000a26  RWIX
+  FRAM                  0000f100   00000e80  0000045c  00000a24  RWIX
   JTAGSIGNATURE         0000ff80   00000004  00000004  00000000  RWIX  ffff 
   BSLSIGNATURE          0000ff84   00000004  00000004  00000000  RWIX  ffff 
   INT00                 0000ff88   00000002  00000000  00000002  RWIX
@@ -124,11 +124,11 @@ section   page    origin      length       input sections
                   0000f500    00000002                            : startup.obj (.text:_system_post_cinit)
 
 .text:_isr 
-*          0    0000f502    00000058     
+*          0    0000f502    0000005a     
                   0000f502    0000001e     main.obj (.text:_isr:TIMER_B)
-                  0000f520    0000001a     rts430x_lc_sd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit)
-                  0000f53a    00000018     main.obj (.text:_isr:PORT_1)
-                  0000f552    00000008     rts430x_lc_sd_eabi.lib : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
+                  0000f520    0000001a     main.obj (.text:_isr:PORT_1)
+                  0000f53a    0000001a     rts430x_lc_sd_eabi.lib : boot_special.obj (.text:_isr:_c_int00_noargs_noexit)
+                  0000f554    00000008                            : isr_trap.obj (.text:_isr:__TI_ISR_TRAP)
 
 .data      0    00002000    00000004     UNINITIALIZED
                   00002000    00000004     main.obj (.data)
@@ -197,9 +197,9 @@ MODULE SUMMARY
        Module                     code   ro data   rw data
        ------                     ----   -------   -------
     .\
-       main.obj                   164    4         4      
+       main.obj                   166    4         4      
     +--+--------------------------+------+---------+---------+
-       Total:                     164    4         4      
+       Total:                     166    4         4      
                                                           
     C:\ti\ccsv7\tools\compiler\ti-cgt-msp430_17.6.0.STS\lib\rts430x_lc_sd_eabi.lib
        copy_decompress_lzss.obj   238    0         0      
@@ -235,7 +235,7 @@ MODULE SUMMARY
        Stack:                     0      0         160    
        Linker Generated:          0      24        0      
     +--+--------------------------+------+---------+---------+
-       Grand Total:               1090   54        164    
+       Grand Total:               1092   54        164    
 
 
 LINKER GENERATED COPY TABLES
@@ -492,7 +492,7 @@ address   name
 0000012a  PMMIFG                  
 0000012b  PMMIFG_H                
 0000012a  PMMIFG_L                
-0000f53a  PORT_1                  
+0000f520  PORT_1                  
 0000030c  RTCCNT                  
 0000030d  RTCCNT_H                
 0000030c  RTCCNT_L                
@@ -720,7 +720,7 @@ UNDEFED   __TI_BINIT_Limit
 0000f110  __TI_Handler_Table_Limit
 UNDEFED   __TI_INITARRAY_Base     
 UNDEFED   __TI_INITARRAY_Limit    
-0000f552  __TI_ISR_TRAP           
+0000f554  __TI_ISR_TRAP           
 0000f118  __TI_decompress_lzss    
 0000f46c  __TI_decompress_none    
 0000ffe2  __TI_int45              
@@ -749,7 +749,7 @@ ffffffff  __c_args__
 0000f42c  __mspabi_remli          
 0000f34e  __mspabi_remul          
 0000f2b8  _auto_init_hold_wdt     
-0000f520  _c_int00_noargs_noexit  
+0000f53a  _c_int00_noargs_noexit  
 0000fffe  _reset_vector           
 00002360  _stack                  
 0000f500  _system_post_cinit      
@@ -1247,9 +1247,9 @@ address   name
 0000f4fc  _system_pre_init        
 0000f500  _system_post_cinit      
 0000f502  TIMER_B                 
-0000f520  _c_int00_noargs_noexit  
-0000f53a  PORT_1                  
-0000f552  __TI_ISR_TRAP           
+0000f520  PORT_1                  
+0000f53a  _c_int00_noargs_noexit  
+0000f554  __TI_ISR_TRAP           
 0000ffe2  __TI_int45              
 0000ffe4  __TI_int46              
 0000ffe6  __TI_int47              

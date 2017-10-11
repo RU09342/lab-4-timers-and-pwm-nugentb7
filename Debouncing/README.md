@@ -59,5 +59,8 @@ __interrupt void PORT_1(void)
 Walking through this, a user presses the on-board button, triggering the PORT_1 interrupt. The buttonPress variable is set to 1. This variable tells the program to begin debouncing in the
 TIMER_B interrupt. In this ISR, a count is incremented until it hits 10 on each TIMER B overflow. This overflow occurs every 0.01s, meaning it takes 0.1s to release the hold on the button interrupt.
 
+To test the functionality of this code, one could use an oscilloscope to read the voltage on the input (each button), as well as the output pin (the LED or a test pin). If the code is functional,
+the input voltage will "bounce", without a clean-cut square-wave shape. However, the output voltage will be an approximate square-wave shaped waveform, without the interference.
+
 ## Extra Tasks
 Multi-Switch Debounce

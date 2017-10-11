@@ -65,6 +65,7 @@ __interrupt void PORT_1(void)
     {
         buttonPress = 1; //set high
         P1OUT ^= BIT0; //toggle LED
+        while (!(P1IN & BIT1)); //hold until button is released
     }
 
     P1IFG &= ~BIT1; //clear flag
